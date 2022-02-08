@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="content-language" content="ja">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="format-detection" content="telephone=no">
+  <title>チームD制作物</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script>
+    let longLat = 36.575; // 緯度
+    let longLon = 135.984; // 経度
+    let intZoom = 5; // ズームレベル
+    let mapLayer = null;
+
+    // オープンデータ(json)
+    let openDataList = [{
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ 139.739538, 35.686898 ]
+      }
+    }];
+
+    // マップを表示
+    let map = L.map("map");
+    map.setView([longLat, longLon], intZoom);
+
+    mapLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }
+    );
+    mapLayer.addTo(map);
+
+    //GeoJSON形式のマーカーをマップに追加
+    L.geoJson(openDataList).addTo(map);
+  </script>
+</body>
+</html>
