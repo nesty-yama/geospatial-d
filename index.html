@@ -41,6 +41,8 @@
 
     //GeoJSON形式のマーカーをマップに追加
     L.geoJson(openDataList).addTo(map);
+    //草加市役所にピンを追加した。
+    L.marker([35.82616444426248, 139.80728455224562], { title: "草加市役所" }).addTo(map);
   </script>
 </body>
 </html>
