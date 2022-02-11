@@ -19,7 +19,7 @@
   \<script>
     let longLat = 36.11517610603418; // 緯度
     let longLon = 139.10972180053537; // 経度
-    let intZoom = 13; // ズームレベル
+    let intZoom = 14; // ズームレベル
     let mapLayer = null;
 
     // オープンデータ(json)
@@ -77,7 +77,10 @@
       L.geoJson(data).addTo(map);
     });
   
-    
+    //スケールの表示
+    L.control.scale({imperial: false}).addTo(map);　 
+  
+  
     //GeoJSON形式のマーカーをマップに追加
     //L.geoJson(openDataList).addTo(map);
     //草加市役所にピンを追加した。
