@@ -70,7 +70,7 @@
               let name = feature.properties.Name;
               layer.bindPopup(name);
             }     
-     }).addTo(map)   
+        }).addTo(map)   
     });
 /**/    
         
@@ -100,6 +100,7 @@
     };
     let shelter_point;
   　 $.getJSON("SAITAMA_Shelter.geojson", function (data) {
+      if(data.feature.properties.緯度 > 31.1 && data.feature.properties.緯度 < 31.2){
         shelter_point = L.geoJson(data,{
             pointToLayer: function (feature,cordinate) {
                return L.circleMarker(cordinate,ShelterMarkerOptions)},
@@ -107,7 +108,8 @@
               let name = feature.properties.P20_002;
               layer.bindPopup(name);
             }     
-     }).addTo(map)   
+        }).addTo(map) 
+      }
     });
 
     //土砂災害警戒区域
