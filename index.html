@@ -75,9 +75,34 @@
 /**/    
         
     //長瀞町の道路
+	var RoadLineStyle={
+		"color": "#00FFFF",
+		"weight": 5,
+		"opacity": 0.9,
+		"lineCap": "butt",
+		"lineJoin": "square",
+		"dashArray": "5 1",
+		"dashOffset": 1,
+	}
+  
+    //長瀞町の道路
  　 $.getJSON("SAITAMA_Nagatoro_Road.geojson", function (data) {
-      L.geoJson(data).addTo(map);
-    });
+//       L.geoJson(data).addTo(map);
+       L.geoJSON(myLines, 
+         {
+			      style: myLineStyle,
+            onEachFeature: function onEachFeature(
+            feature,
+            layer
+         ){
+            if(feature.properties && feature.properties.popupContent){
+            layer.bindPopup(feature.properties.popupContent);
+        }
+      }
+    }
+  ).addTo(mymap);     
+    
+   });
 
     //河川
  　 $.getJSON("SAITAMA_River.geojson", function (data) {
