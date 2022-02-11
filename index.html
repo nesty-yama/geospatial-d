@@ -88,20 +88,14 @@
     //長瀞町の道路
  　 $.getJSON("SAITAMA_Nagatoro_Road.geojson", function (data) {
 //       L.geoJson(data).addTo(map);
-       L.geoJSON(myLines, 
+       L.geoJSON(data, 
          {
-			      style: myLineStyle,
+			      style: RoadLineStyle,
             onEachFeature: function onEachFeature(
-            feature,
-            layer
-         ){
-            if(feature.properties && feature.properties.popupContent){
-            layer.bindPopup(feature.properties.popupContent);
-        }
-      }
-    }
-  ).addTo(mymap);     
-    
+               feature,
+               layer
+            )
+       }).addTo(map);     
    });
 
     //河川
