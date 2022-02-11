@@ -91,7 +91,7 @@
        L.geoJSON(data, 
          {
 	    style: RoadLineStyle,
-            function onEachFeature(feature, layer) {
+            onEachFeature: function onEachFeature(feature, layer) {
     		layer.on({
         	mouseover: highlightFeature,
         	mouseout: resetHighlight,
