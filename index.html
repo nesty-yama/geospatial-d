@@ -90,11 +90,13 @@
 //       L.geoJson(data).addTo(map);
        L.geoJSON(data, 
          {
-			      style: RoadLineStyle,
-            onEachFeature: function onEachFeature(
-               feature,
-               layer
-            )
+	    style: RoadLineStyle,
+            function onEachFeature(feature, layer) {
+    		layer.on({
+        	mouseover: highlightFeature,
+        	mouseout: resetHighlight,
+        	click: zoomToFeature
+    	});
        }).addTo(map);     
    });
 
