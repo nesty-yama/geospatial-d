@@ -19,7 +19,7 @@
   \<script>
     let longLat = 36.11517610603418; // 緯度
     let longLon = 139.10972180053537; // 経度
-    let intZoom = 15; // ズームレベル
+    let intZoom = 1; // ズームレベル
     let mapLayer = null;
 
     // オープンデータ(json)
@@ -65,7 +65,7 @@
 
     //避難施設
  　 $.getJSON("SAITAMA_Shelter.geojson", function (data) {
-      if (data.feature.propaties.緯度 < 36.139712 && data.feature.propaties.緯度 >36.07856) {
+      if (data.Feature.propaties.緯度 < 36.139712 && data.Feature.propaties.緯度 >36.07856) {
         L.geoJson(data).addTo(map);
       }
     });
