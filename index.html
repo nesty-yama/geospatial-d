@@ -69,7 +69,7 @@
         L.geoJson(data).addTo(map);
         L.geoJson(data).bindPopup(function (layer) {
          return layer.feature.properties.P20_002;
-        }
+        }).addTo(map)
     });
 
     //土砂災害警戒区域
