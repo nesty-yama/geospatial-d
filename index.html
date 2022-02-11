@@ -78,11 +78,11 @@
    var RoadLineStyle={
 		"color": "#666666",
 		"weight": 5,
-		"opacity": 0.9,
-		"lineCap": "butt",
-		"lineJoin": "square",
-		"dashArray": "5 1",
-		"dashOffset": 1,
+		"opacity": 0.9
+//		"lineCap": "butt",
+//		"lineJoin": "square",
+//		"dashArray": "5 1",
+//		"dashOffset": 1,
 	}
    
  　 $.getJSON("SAITAMA_Nagatoro_Road.geojson", function (data) {
@@ -93,11 +93,11 @@
    var RiverLineStyle={
 		"color": "#00FFFF",
 		"weight": 5,
-		"opacity": 0.9,
-		"lineCap": "butt",
-		"lineJoin": "square",
-		"dashArray": "5 1",
-		"dashOffset": 1,
+		"opacity": 0.9
+//		"lineCap": "butt",
+//		"lineJoin": "square",
+//		"dashArray": "5 1",
+//		"dashOffset": 1,
 	}	  
  　 $.getJSON("SAITAMA_River.geojson", function (data) {
        L.geoJSON(data, {style: RiverLineStyle}).addTo(map);;
