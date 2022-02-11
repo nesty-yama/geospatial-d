@@ -65,14 +65,13 @@
             pointToLayer: function (feature,cordinate) {
                return L.circleMarker(cordinate,geojsonMarkerOptions)},
             onEachFeature: function(feature,layer){
-              let name = feature.properties.P20_002;
+              let name = feature.properties.Name;
               layer.bindPopup(name);
             }     
      }).addTo(map)   
     });
     
-    
-    
+        
     //長瀞町の道路
  　 $.getJSON("SAITAMA_Nagatoro_Road.geojson", function (data) {
       L.geoJson(data).addTo(map);
