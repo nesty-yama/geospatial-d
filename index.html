@@ -66,7 +66,7 @@
     //避難施設
  　 $.getJSON("SAITAMA_Shelter.geojson", function (data) {
 //      if (data.Feature.propaties.緯度 < 36.139712 && data.Feature.propaties.緯度 >36.07856) {
-        L.geoJson(data).addTo(map);
+//        L.geoJson(data).addTo(map);
         L.geoJson(data).bindPopup(function (layer) {
          return layer.feature.properties.P20_002;
         }).addTo(map)
