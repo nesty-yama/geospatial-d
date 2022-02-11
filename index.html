@@ -66,6 +66,9 @@
         L.marker([row.geometry.coordinates[1],row.geometry.coordinates[0]],{ title: row.properties.P20_002 + '  ' + row.properties.P20_004 }).addTo(map);
       }
     )
+    fetch('data/shelter/SAITAMA_Shelter.geojson')
+  .then(response => response.json())
+  .then(data => console.log(data));
     // // <!-- 埼玉県長瀞町_道路及び信号機 -->
     // L.geoJson(SAITAMA_Nagatoro_Road_GeoJSON).addTo(map);
     // L.geoJson(SAITAMA_Nagatoro_Signal_GeoJSON).addTo(map);
