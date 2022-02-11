@@ -43,6 +43,13 @@
     L.geoJson(openDataList).addTo(map);
     //草加市役所にピンを追加した。
     L.marker([35.82616444426248, 139.80728455224562], { title: "草加市役所" }).addTo(map);
+    
+    
+         // jsonファイルは読み込みだけなら変数に直接代入可能です。
+      // ただし、オブジェクトで渡してあげる必要があるようで、パスはrequireで囲む必要があります。
+      let hoge = require("@/assets/data/test.json")
+    
+    
   </script>
 </body>
 </html>
