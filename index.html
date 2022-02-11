@@ -21,7 +21,6 @@
     let longLon = 139.10972180053537; // 経度
     let intZoom = 14; // ズームレベル
     let mapLayer = null;
-    let point = null;
 
     // オープンデータ(json)
     let openDataList = [{
@@ -45,13 +44,14 @@
 
     //GeoJSON形式のマーカーをマップに追加
     // 単身高齢者情報
+/*
     $.getJSON("SupportList.geojson", function (data) {
       L.geoJson(data).addTo(map);
       L.geoJson(data).bindPopup(function (layer) {
          return layer.feature.properties.Name;
         }).addTo(map)      
     });
-
+/**/
     let SupportListMarkerOptions = {
      radius: 8,
      fillColor: "#ff0000",
@@ -60,9 +60,10 @@
      opacity: 1,
      fillOpacity: 0.8
     };
-    
+
+    let support_point;
 　　 　 $.getJSON("SupportList.geojson", function (data) {
-        point = L.geoJson(data,{
+        support_point = L.geoJson(data,{
             pointToLayer: function (feature,cordinate) {
                return L.circleMarker(cordinate,SupportListMarkerOptions)},
             onEachFeature: function(feature,layer){
@@ -97,9 +98,9 @@
      opacity: 1,
      fillOpacity: 0.8
     };
-
+    let shelter_point;
   　 $.getJSON("SAITAMA_Shelter.geojson", function (data) {
-        point = L.geoJson(data,{
+        shelter_point = L.geoJson(data,{
             pointToLayer: function (feature,cordinate) {
                return L.circleMarker(cordinate,ShelterMarkerOptions)},
             onEachFeature: function(feature,layer){
