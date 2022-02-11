@@ -42,7 +42,7 @@
     );
     mapLayer.addTo(map);
 
-    $.getJSON("sample.geojson", function (data) {
+    $.getJSON("SupportList.geojson", function (data) {
       L.geoJson(data).addTo(map);
     });
     
