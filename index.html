@@ -76,7 +76,7 @@
         
     //長瀞町の道路
    var RoadLineStyle={
-		"color": "#00FFFF",
+		"color": "#666666",
 		"weight": 5,
 		"opacity": 0.9,
 		"lineCap": "butt",
@@ -84,20 +84,37 @@
 		"dashArray": "5 1",
 		"dashOffset": 1,
 	}
-	
+   
  　 $.getJSON("SAITAMA_Nagatoro_Road.geojson", function (data) {
-//       L.geoJson(data).addTo(map);
        L.geoJSON(data, {style: RoadLineStyle}).addTo(map);
    });
 	  
     //河川
+   var RiverLineStyle={
+		"color": "#00FFFF",
+		"weight": 5,
+		"opacity": 0.9,
+		"lineCap": "butt",
+		"lineJoin": "square",
+		"dashArray": "5 1",
+		"dashOffset": 1,
+	}	  
  　 $.getJSON("SAITAMA_River.geojson", function (data) {
-      L.geoJson(data).addTo(map);
+       L.geoJSON(data, {style: RiverLineStyle}).addTo(map);;
     });
   
     //緊急輸送道路
+   var EmergencyRoadLineStyle={
+		"color": "#FF0000",
+		"weight": 5,
+		"opacity": 0.9,
+		"lineCap": "butt",
+		"lineJoin": "square",
+		"dashArray": "5 1",
+		"dashOffset": 1,
+	}	  
  　 $.getJSON("SAITAMA_EmergencyRoad.geojson", function (data) {
-      L.geoJson(data).addTo(map);
+       L.geoJSON(data, {style: EmergencyRoadLineStyle}).addTo(map);
     });
 
     //避難施設
