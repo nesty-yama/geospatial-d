@@ -107,11 +107,11 @@
    var EmergencyRoadLineStyle={
 		"color": "#FF0000",
 		"weight": 5,
-		"opacity": 0.9,
-		"lineCap": "butt",
-		"lineJoin": "square",
-		"dashArray": "5 1",
-		"dashOffset": 1,
+		"opacity": 0.9
+//		"lineCap": "butt",
+//		"lineJoin": "square",
+//		"dashArray": "5 1",
+//		"dashOffset": 1,
 	}	  
  　 $.getJSON("SAITAMA_EmergencyRoad.geojson", function (data) {
        L.geoJSON(data, {style: EmergencyRoadLineStyle}).addTo(map);
@@ -141,8 +141,17 @@
     });
 
     //土砂災害警戒区域
+　　　　　　　var LandslideLineStyle={
+		"color": "#888800",
+		"weight": 5,
+		"opacity": 0.9
+//		"lineCap": "butt",
+//		"lineJoin": "square",
+//		"dashArray": "5 1",
+//		"dashOffset": 1,
+	}
  　 $.getJSON("A33-20_11Polygon.geojson", function (data) {
-      L.geoJson(data).addTo(map);
+       L.geoJSON(data, {style: LandslideLineStyle}).addTo(map);
     });
   
     //スケールの表示
