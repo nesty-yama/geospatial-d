@@ -67,12 +67,30 @@
     });
 
     //避難施設
+  let geojsonMarkerOptions = {
+    radius: 8,
+    fillColor: "#ff7800",
+    color: "#000",
+    weight: 1,
+    opacity: 1,
+    fillOpacity: 0.8
+};
+
+let point;  //避難施設     
  　 $.getJSON("SAITAMA_Shelter.geojson", function (data) {
+        point = L.geoJson(data,{
+            pointToLayer: function (feature,cordinate) {
+               return L.circleMarker(cordinate,geojsonMarkerOptions)},
+            onEachFeature: function(feature,layer){
+              let name = feature.properties.P20_002;
+              layer.bindPopup(name);
+            }     
+     }).addTo(map)
 //      　if (data.feature.properties."緯度" < 36.139712 && data.feature.properties."緯度" >36.07856) {
 //        L.geoJson(data).addTo(map);
-        　L.geoJson(data).bindPopup(function (layer) {
-         　　return layer.feature.properties.P20_002;
-        　}).addTo(map)
+//        　L.geoJson(data).bindPopup(function (layer) {
+//         　　return layer.feature.properties.P20_002;
+//       　}).addTo(map)
 //       }       
     });
 
