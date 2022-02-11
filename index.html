@@ -75,7 +75,7 @@
 /**/    
         
     //長瀞町の道路
-	var RoadLineStyle={
+   var RoadLineStyle={
 		"color": "#00FFFF",
 		"weight": 5,
 		"opacity": 0.9,
@@ -84,20 +84,10 @@
 		"dashArray": "5 1",
 		"dashOffset": 1,
 	}
-  
-    //長瀞町の道路
+	
  　 $.getJSON("SAITAMA_Nagatoro_Road.geojson", function (data) {
 //       L.geoJson(data).addTo(map);
-       L.geoJSON(data, 
-         {
-	    style: RoadLineStyle,
-            onEachFeature: function onEachFeature(feature, layer) {
-    		layer.on({
-        	mouseover: highlightFeature,
-        	mouseout: resetHighlight,
-        	click: zoomToFeature
-    	});
-       }).addTo(map);     
+       L.geoJSON(data, {style: RoadLineStyle}).addTo(map);
    });
 	  
     //河川
@@ -121,7 +111,7 @@
     };
     let shelter_point;
   　 $.getJSON("SAITAMA_Shelter.geojson", function (data) {
-      if(data.feature.properties.緯度 > 31.1 && data.feature.properties.緯度 < 31.2){
+//      if(data.feature.properties.緯度 > 31.1 && data.feature.properties.緯度 < 31.2){
         shelter_point = L.geoJson(data,{
             pointToLayer: function (feature,cordinate) {
                return L.circleMarker(cordinate,ShelterMarkerOptions)},
@@ -130,7 +120,7 @@
               layer.bindPopup(name);
             }     
         }).addTo(map) 
-      }
+//      }
     });
 
     //土砂災害警戒区域
