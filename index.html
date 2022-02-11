@@ -16,7 +16,7 @@
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 
-  \<script>
+  <script>
     let longLat = 36.11517610603418; // 緯度
     let longLon = 139.10972180053537; // 経度
     let intZoom = 14; // ズームレベル
@@ -44,13 +44,35 @@
 
     //GeoJSON形式のマーカーをマップに追加
     // 単身高齢者情報
-    $.getJSON("SupportList.geojson", function (data) {
+//    $.getJSON("SupportList.geojson", function (data) {
 //      L.geoJson(data).addTo(map);
-      L.geoJson(data).bindPopup(function (layer) {
-         return layer.feature.properties.Name;
-        }).addTo(map)      
+//      L.geoJson(data).bindPopup(function (layer) {
+//         return layer.feature.properties.Name;
+//        }).addTo(map)      
+//    });
+    let geojsonMarkerOptions = {
+     radius: 8,
+     fillColor: "#ff0000",
+     color: "#000",
+     weight: 1,
+     opacity: 1,
+     fillOpacity: 0.8
+    };
+
+    let point;     
+ 　 $.getJSON("SupportList.geojson", function (data) {
+        point = L.geoJson(data,{
+            pointToLayer: function (feature,cordinate) {
+               return L.circleMarker(cordinate,geojsonMarkerOptions)},
+            onEachFeature: function(feature,layer){
+              let name = feature.properties.P20_002;
+              layer.bindPopup(name);
+            }     
+     }).addTo(map)   
     });
-  
+    
+    
+    
     //長瀞町の道路
  　 $.getJSON("SAITAMA_Nagatoro_Road.geojson", function (data) {
       L.geoJson(data).addTo(map);
@@ -67,16 +89,16 @@
     });
 
     //避難施設
-  let geojsonMarkerOptions = {
-    radius: 8,
-    fillColor: "#ff7800",
-    color: "#000",
-    weight: 1,
-    opacity: 1,
-    fillOpacity: 0.8
-};
+    let geojsonMarkerOptions = {
+     radius: 8,
+     fillColor: "#00ff00",
+     color: "#000",
+     weight: 1,
+     opacity: 1,
+     fillOpacity: 0.8
+    };
 
-let point;  //避難施設     
+    let point;     
  　 $.getJSON("SAITAMA_Shelter.geojson", function (data) {
         point = L.geoJson(data,{
             pointToLayer: function (feature,cordinate) {
@@ -85,13 +107,7 @@ let point;  //避難施設
               let name = feature.properties.P20_002;
               layer.bindPopup(name);
             }     
-     }).addTo(map)
-//      　if (data.feature.properties."緯度" < 36.139712 && data.feature.properties."緯度" >36.07856) {
-//        L.geoJson(data).addTo(map);
-//        　L.geoJson(data).bindPopup(function (layer) {
-//         　　return layer.feature.properties.P20_002;
-//       　}).addTo(map)
-//       }       
+     }).addTo(map)   
     });
 
     //土砂災害警戒区域
