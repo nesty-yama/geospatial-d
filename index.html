@@ -21,6 +21,7 @@
     let longLon = 139.10972180053537; // 経度
     let intZoom = 14; // ズームレベル
     let mapLayer = null;
+    let point = null;
 
     // オープンデータ(json)
     let openDataList = [{
@@ -50,8 +51,8 @@
          return layer.feature.properties.Name;
         }).addTo(map)      
     });
-/*
-    let geojsonMarkerOptions = {
+
+    let SupportListMarkerOptions = {
      radius: 8,
      fillColor: "#ff0000",
      color: "#000",
@@ -64,7 +65,7 @@
 　　 　 $.getJSON("SupportList.geojson", function (data) {
         point = L.geoJson(data,{
             pointToLayer: function (feature,cordinate) {
-               return L.circleMarker(cordinate,geojsonMarkerOptions)},
+               return L.circleMarker(cordinate,SupportListMarkerOptions)},
             onEachFeature: function(feature,layer){
               let name = feature.properties.Name;
               layer.bindPopup(name);
@@ -89,7 +90,7 @@
     });
 
     //避難施設
-    let geojsonMarkerOptions = {
+    let ShelternMarkerOptions = {
      radius: 8,
      fillColor: "#00ff00",
      color: "#000",
@@ -98,11 +99,10 @@
      fillOpacity: 0.8
     };
 
-    let point;     
- 　 $.getJSON("SAITAMA_Shelter.geojson", function (data) {
+  　 $.getJSON("SAITAMA_Shelter.geojson", function (data) {
         point = L.geoJson(data,{
             pointToLayer: function (feature,cordinate) {
-               return L.circleMarker(cordinate,geojsonMarkerOptions)},
+               return L.circleMarker(cordinate,ShelterMarkerOptions)},
             onEachFeature: function(feature,layer){
               let name = feature.properties.P20_002;
               layer.bindPopup(name);
