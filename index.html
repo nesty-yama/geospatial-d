@@ -65,7 +65,9 @@
 
     //避難施設
  　 $.getJSON("SAITAMA_Shelter.geojson", function (data) {
-      L.geoJson(data).addTo(map);
+      if (data.lat[0] < 36.139712 && data.lat[0] >36.07856) {
+        L.geoJson(data).addTo(map);
+      }
     });
 
     //土砂災害警戒区域
