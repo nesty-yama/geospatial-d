@@ -53,15 +53,21 @@
     // <!-- 埼玉県_緊急輸送道路 -->
     // L.geoJson(SAITAMA_EmergencyRoad_GeoJSON).addTo(map);
     // // <!-- 埼玉県_洪水浸水想定区域 -->// 洪水浸水想定区域と寸分違わぬ範囲で災害が起きたという想定とする。
-    let FllodHazardMapPromise = fetch('data/simulation/SAITAMA_FllodHazardMap.geojson')
-    // // <!-- 埼玉県_土砂災害警戒区域 -->// 土砂災害警戒区域と寸分違わぬ範囲で災害が起きたという想定とする。
-    let SedimentDisasterMapPromise = fetch('data/simulation/SAITAMA_SedimentDisasterMap.geojson')
-    Promise.all([FllodHazardMapPromise, SedimentDisasterMapPromise])
+    fetch('data/simulation/SAITAMA_FllodHazardMap.geojson')
     .then(response => response.json())
     .then(data => {
       L.geoJson(data).addTo(map);
     }).catch( (error) => {
-      console.error('GeoJSON の読み込み又は地物情報の反映時にエラーが発生しました。')
+      console.error('SAITAMA_FllodHazardMap の読み込み又は地物情報の反映時にエラーが発生しました。')
+      console.error(error)
+    });
+    // // <!-- 埼玉県_土砂災害警戒区域 -->// 土砂災害警戒区域と寸分違わぬ範囲で災害が起きたという想定とする。
+    fetch('data/simulation/SAITAMA_SedimentDisasterMap.geojson')
+    .then(response => response.json())
+    .then(data => {
+      L.geoJson(data).addTo(map);
+    }).catch( (error) => {
+      console.error('SAITAMA_SedimentDisasterMap の読み込み又は地物情報の反映時にエラーが発生しました。')
       console.error(error)
     });
     // // <!-- 埼玉県_避難施設 -->
