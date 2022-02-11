@@ -13,20 +13,28 @@
   <div id="map"></div>
 
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <!-- 埼玉県_河川 -->
+  <script src="SAITAMA_River.geojson.js"></script>
+  <!-- 埼玉県_緊急輸送道路 -->
+  <script src="SAITAMA_EmergencyRoad.geojson.js"></script>
+  <!-- 埼玉県_洪水浸水想定区域 -->
+  <script src="SAITAMA_FllodHazardMap.geojson.js"></script>
+  <!-- 埼玉県_土砂災害警戒区域 -->
+  <script src="SAITAMA_SedimentDisasterMap.geojson.js"></script>
+  <!-- 埼玉県_避難施設 -->
+  <script src="SAITAMA_Shelter.geojson.js"></script>
+  <!-- 埼玉県長瀞町_道路及び信号機 -->
+  <script src="SAITAMA_Nagatoro_Road.geojson.js"></script>
+  <script src="SAITAMA_Nagatoro_Signal.geojson.js"></script>
+  
+  
   <script>
-    let longLat = 36.575; // 緯度
-    let longLon = 135.984; // 経度
-    let intZoom = 5; // ズームレベル
+    let longLat = 35.975; // 緯度
+    let longLon = 139.6; // 経度
+    let intZoom = 12; // ズームレベル
     let mapLayer = null;
 
-    // オープンデータ(json)
-    let openDataList = [{
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [ 139.739538, 35.686898 ]
-      }
-    }];
+
 
     // マップを表示
     let map = L.map("map");
@@ -39,19 +47,30 @@
     );
     mapLayer.addTo(map);
 
-    //GeoJSON形式のマーカーをマップに追加
-    L.geoJson(openDataList).addTo(map);
+    //GeoJSONの地物をマップに追加
+    // <!-- 埼玉県_河川 -->
+    // L.geoJson(SAITAMA_River_GeoJSON).addTo(map);
+    // <!-- 埼玉県_緊急輸送道路 -->
+    // L.geoJson(SAITAMA_EmergencyRoad_GeoJSON).addTo(map);
+    // // <!-- 埼玉県_洪水浸水想定区域 -->
+    L.geoJson(SAITAMA_FllodHazardMap_GeoJSON).addTo(map);
+    // // <!-- 埼玉県_土砂災害警戒区域 -->
+    L.geoJson(SAITAMA_SedimentDisasterMap_GeoJSON).addTo(map);
+    // // <!-- 埼玉県_避難施設 -->
+    // L.geoJson(SAITAMA_Shelter_GeoJSON).addTo(map);
+    // // <!-- 埼玉県長瀞町_道路及び信号機 -->
+    // L.geoJson(SAITAMA_Nagatoro_Road_GeoJSON).addTo(map);
+    // L.geoJson(SAITAMA_Nagatoro_Signal_GeoJSON).addTo(map);
+    
+    
+    
+    
+    
     //草加市役所にピンを追加した。
-    L.marker([35.82616444426248, 139.80728455224562], { title: "草加市役所" }).addTo(map);
+    // L.marker([35.82616444426248, 139.80728455224562], { title: "草加市役所" }).addTo(map);
     
     
-         // jsonファイルは読み込みだけなら変数に直接代入可能です。
-      // ただし、オブジェクトで渡してあげる必要があるようで、パスはrequireで囲む必要があります。
-      let hoge = require("@/assets/data/test.json")
     
-    console.log("▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼");
-    console.log(hoge);
-    console.log("▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲");
     
   </script>
 </body>
