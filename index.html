@@ -7,7 +7,10 @@
   <meta name="format-detection" content="telephone=no">
   <title>チームD制作物</title>
   <link rel="stylesheet" href="./library/leaflet/leaflet.css">
+  <link rel="stylesheet" href="./library/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="./index.css">
+  <script src="./library/bootstrap/bootstrap.min.js"></script>
+  <script src="./style.js"></script>
   <!-- オープンデータ -->
   <!-- 埼玉県_河川 -->
   <script src="./data/opendata/SAITAMA_River.geojson.js"></script>
@@ -26,45 +29,49 @@
 
 </head>
 <body>
-  <!-- 住所入力 -->
-  <div id="address_form">
-    <span>住所&#65306;</span>
-    <input id="address" type="text">
-    <button onclick="inputChange()">移動</button>
-  </div>
-  <!-- 表示情報切り替え -->
-  <div>
-    <span>※切り替え機能は、現在実装中!</span>
-    <div>
-      <span>項目1&#65306;</span>
-      <label class="switch__label">
-        <input
-          id="river" value="river" type="checkbox" class="switch__input" onchange="changeDisplayStatus(event)"/>
-        <span class="switch__content"></span>
-        <span class="switch__circle"></span>
-      </label>
-    </div>
-    <div>
-      <span>項目2&#65306;</span>
-      <label class="switch__label">
-        <input
-          id="evacuation_area" value="evacuation_area" type="checkbox" class="switch__input" onchange="changeDisplayStatus(event)"/>
-        <span class="switch__content"></span>
-        <span class="switch__circle"></span>
-      </label>
-    </div>
-    <div>
-      <span>項目3&#65306;</span>
-      <label class="switch__label">
-        <input
-          id="evacuation_area" value="evacuation_area" type="checkbox" class="switch__input" onchange="changeDisplayStatus(event)"/>
-        <span class="switch__content"></span>
-        <span class="switch__circle"></span>
-      </label>
-    </div>
-  </div>
+  <!-- マップ -->
   <div id="map"></div>
+  <!-- ヘッダー -->
+  <div class="header">
+    <h1>地域助け合い避難マップ</h1>
+    <div class="btn-menu" onclick="fnClickHeaderMenu();">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+  <!-- メニュー -->
+  <div class="menu" id="menu">
+    <div>
+      <input id="address" class="form-control" type="text" placeholder="検索">
+      <button onclick="inputChange()">移動</button>
+    </div>
+    <ul>
+      <!-- 単身高齢者宅 -->
+      <li>
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" role="switch" id="menuSwitchSenior" onchange="changeDisplayStatus(event)">
+          <label class="form-check-label" for="menuSwitchSenior">単身高齢者宅</label>
+        </div>
+      </li>
+      <!-- 避難場所 -->
+      <li>
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" role="switch" id="menuSwitchEvacuationArea" onchange="changeDisplayStatus(event)">
+          <label class="form-check-label" for="menuSwitchEvacuationArea">避難場所</label>
+        </div>
+      </li>
+      <!-- 避難所 -->
+      <li>
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" role="switch" id="menuSwitchEvacuationPlace" onchange="changeDisplayStatus(event)">
+          <label class="form-check-label" for="menuSwitchEvacuationPlace">避難所</label>
+        </div>
+      </li>
+    </ul>
+  </div>
 
+  <!-- マップ操作関連 -->
   <script src="./library/leaflet/leaflet.js"></script>
   <script src="./index.js"></script>
 </body>
