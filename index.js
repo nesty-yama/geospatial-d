@@ -22,24 +22,42 @@ mapLayer.addTo(map);
 // <!-- 埼玉県_緊急輸送道路 -->
 // L.geoJson(SAITAMA_EmergencyRoad_GeoJSON).addTo(map);
 // // <!-- 埼玉県_洪水浸水想定区域 -->// 洪水浸水想定区域と寸分違わぬ範囲で災害が起きたという想定とする。
-L.geoJson(SAITAMA_FllodHazardMap_GeoJSON).addTo(map);
+fetch('data/simulation/SAITAMA_FllodHazardMap.geojson')
+.then(response => response.json())
+.then(data => {
+  L.geoJson(data).addTo(map);
+}).catch( (error) => {
+  console.error('SAITAMA_FllodHazardMap の読み込み又は地物情報の反映時にエラーが発生しました。')
+  console.error(error)
+});
 // // <!-- 埼玉県_土砂災害警戒区域 -->// 土砂災害警戒区域と寸分違わぬ範囲で災害が起きたという想定とする。
-L.geoJson(SAITAMA_SedimentDisasterMap_GeoJSON).addTo(map);
+fetch('data/simulation/SAITAMA_SedimentDisasterMap.geojson')
+.then(response => response.json())
+.then(data => {
+  L.geoJson(data).addTo(map);
+}).catch( (error) => {
+  console.error('SAITAMA_SedimentDisasterMap の読み込み又は地物情報の反映時にエラーが発生しました。')
+  console.error(error)
+});
 // // <!-- 埼玉県_避難施設 -->
-// L.geoJson(SAITAMA_Shelter_GeoJSON).addTo(map);
+fetch('data/shelter/SAITAMA_Shelter.geojson')
+.then(response => response.json())
 // 避難施設は点データであり、利便性向上を目的として施設名称がマウスオーバーによって表示されるようにした。
-SAITAMA_Shelter_GeoJSON.features.forEach(
-  row =>
-  {
-    //GeoJSONとmarkerは緯度経度をサイズ2の配列を期待している点で同じだが並び順は異なる。GeoJSON経度緯度の順だが、マーカーは緯度経度の順番を期待している。
-    L.marker([row.geometry.coordinates[1],row.geometry.coordinates[0]],{ title: row.properties.P20_002 + '  ' + row.properties.P20_004 }).addTo(map);
-  }
-)
+.then(data => {
+  data.features.forEach(
+    row =>
+    {
+      //GeoJSONとmarkerは緯度経度をサイズ2の配列を期待している点で同じだが並び順は異なる。GeoJSON経度緯度の順だが、マーカーは緯度経度の順番を期待している。
+      L.marker([row.geometry.coordinates[1],row.geometry.coordinates[0]],{ title: row.properties.P20_002 + '  ' + row.properties.P20_004 }).addTo(map);
+    }
+  )
+}).catch( (error) => {
+  console.error('SAITAMA_Shelter の読み込み又はマーカへの反映時にエラーが発生しました。')
+  console.error(error)
+});
 // // <!-- 埼玉県長瀞町_道路及び信号機 -->
 // L.geoJson(SAITAMA_Nagatoro_Road_GeoJSON).addTo(map);
 // L.geoJson(SAITAMA_Nagatoro_Signal_GeoJSON).addTo(map);
-
-
 
 
 
