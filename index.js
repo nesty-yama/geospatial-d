@@ -73,8 +73,8 @@ function inputChange(){
       let lat = latlng.lat;
       let lng = latlng.lng;
 
-      // 取得した緯度・経度が不正なら何もしない
-      if(lat === 0 || lng === 0) return false;
+      // 日本国内を想定しているため、ガーナ湾沖(緯度:0,経度0)の場合、視点移動を行わない。
+      if(lat === 0 || lng === 0) return;
 
       // 表示座標をセット
       map.setView([lat, lng]);
@@ -82,8 +82,10 @@ function inputChange(){
 }
 
 //------------------------------------//
-// 住所から緯度経度を返す OpenStreetMap
-// address:住所
+// OpenStreetMapの機能を使って住所キーワードから経度・緯度オブジェクトを返す 
+// @Params address:住所
+// 住所をもとに合致する地物がない場合は(緯度:0,経度0)の経度・緯度オブジェクトを返却する。
+// ※日本国内を想定しているため、ガーナ湾沖(緯度:0,経度0)が検索結果となることはない。
 //------------------------------------//
 const getLatLngByAdreessForOpenStreetMap = (address) =>
   new Promise((resolve, reject) => {
@@ -93,17 +95,21 @@ const getLatLngByAdreessForOpenStreetMap = (address) =>
         format:"json"// 返り値の形式
       , q:address    // 検索ワード
     }
+    console.log(params);
     /*Baseの場合はJSONPに対応していないため、jqueryでajax返す*///TODO コメント見直し。
     axios.get(
-      'https://nominatim.openstreetmap.org"' // APIのURL
-      , params
+      'https://nominatim.openstreetmap.org' // APIのURL
+      , {
+        'params': params
+      }
     )
     // 成功時
-    .then(function(data){
+    .then(function(response){
+      let data = response.data;
       // 経度・緯度変数を初期化
       let lat = 0;
       let lon = 0;
-      // OPMがマッチ率の高い順で返却してくる前提で、先頭の地物の緯度経度を設定する。
+      // OSMがマッチ率の高い順で返却してくる前提で、先頭地物の緯度経度を設定する。
       if (data.length > 0) {
         lat = data[0].lat;
         lon = data[0].lon;
@@ -114,6 +120,7 @@ const getLatLngByAdreessForOpenStreetMap = (address) =>
     })
     // エラー時
     .catch(function (error) {
+      console.log(error);
       console.log("XMLHttpRequest : " + XMLHttpRequest.status); // HTTPリクエストのステータス
       console.log("textStatus : " + textStatus); // タイムアウト、パースエラー等の情報
       console.log("errorThrown : " + errorThrown.message); // 例外情報
