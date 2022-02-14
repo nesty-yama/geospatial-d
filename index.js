@@ -93,30 +93,29 @@ const getLatLngByAdreessForOpenStreetMap = (address) =>
         format:"json"// 返り値の形式
       , q:address    // 検索ワード
     }
-    /*Baseの場合はJSONPに対応していないため、jqueryでajax返す*/
-    jQuery.ajax({
-          url:"https://nominatim.openstreetmap.org" // APIのURL
-        , data:params //パラメータ
-        , dataType:"json"
-        // 成功時
-        , success:function(data){
-          // 経度・緯度変数を初期化
-          let lat = 0;
-          let lon = 0;
-          // 検索結果があれば１件目をセット
-          if (data.length > 0) {
-            lat = data[0].lat;
-            lon = data[0].lon;
-          }
-          // leafletの経度・緯度オブジェクトにセットして返す
-          let latlng = L.latLng(lat, lon);
-          resolve(latlng);
-        }
-        // エラー時
-        , error: function(XMLHttpRequest, textStatus, errorThrown) {
-          console.log("XMLHttpRequest : " + XMLHttpRequest.status); // HTTPリクエストのステータス
-          console.log("textStatus : " + textStatus); // タイムアウト、パースエラー等の情報
-          console.log("errorThrown : " + errorThrown.message); // 例外情報
-        }
-    });
+    /*Baseの場合はJSONPに対応していないため、jqueryでajax返す*///TODO コメント見直し。
+    axios.get(
+      'https://nominatim.openstreetmap.org"' // APIのURL
+      , params
+    )
+    // 成功時
+    .then(function(data){
+      // 経度・緯度変数を初期化
+      let lat = 0;
+      let lon = 0;
+      // OPMがマッチ率の高い順で返却してくる前提で、先頭の地物の緯度経度を設定する。
+      if (data.length > 0) {
+        lat = data[0].lat;
+        lon = data[0].lon;
+      }
+      // leafletの経度・緯度オブジェクトにセットして返す
+      let latlng = L.latLng(lat, lon);
+      resolve(latlng);
+    })
+    // エラー時
+    .catch(function (error) {
+      console.log("XMLHttpRequest : " + XMLHttpRequest.status); // HTTPリクエストのステータス
+      console.log("textStatus : " + textStatus); // タイムアウト、パースエラー等の情報
+      console.log("errorThrown : " + errorThrown.message); // 例外情報
+    });  
   });
