@@ -96,7 +96,7 @@ const getLatLngByAdreessForOpenStreetMap = (address) =>
       , q:address    // 検索ワード
     }
     console.log(params);
-    /*Baseの場合はJSONPに対応していないため、jqueryでajax返す*///TODO コメント見直し。
+    // 検索ワードに該当する地物一覧をOSMから取得する。
     axios.get(
       'https://nominatim.openstreetmap.org' // APIのURL
       , {
