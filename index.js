@@ -4,62 +4,133 @@ let intZoom = 16; // ズームレベル
 let mapLayer = null;
 
 
-
-// マップを表示
+// マップ定義
 let map = L.map("map");
-map.setView([longLat, longLon], intZoom);
 
+// featureGroup等を定義
 mapLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
   {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }
 );
+map.group = new L.featureGroup([],{}); // ここに、オープンデータのレイヤーをセットする
+
+// 定義したfeatureGroup等をmapにセット
 mapLayer.addTo(map);
+map.group.addTo(map);
+
+// マップ表示
+map.setView([longLat, longLon], intZoom);
 
 //GeoJSONの地物をマップに追加
 // <!-- 埼玉県_河川 -->
 // L.geoJson(SAITAMA_River_GeoJSON).addTo(map);
 // <!-- 埼玉県_緊急輸送道路 -->
 // L.geoJson(SAITAMA_EmergencyRoad_GeoJSON).addTo(map);
-// // <!-- 埼玉県_洪水浸水想定区域 -->// 洪水浸水想定区域と寸分違わぬ範囲で災害が起きたという想定とする。
-fetch('data/simulation/SAITAMA_FllodHazardMap.geojson')
-.then(response => response.json())
-.then(data => {
-  L.geoJson(data).addTo(map);
-}).catch( (error) => {
-  console.error('SAITAMA_FllodHazardMap の読み込み又は地物情報の反映時にエラーが発生しました。')
-  console.error(error)
-});
-// // <!-- 埼玉県_土砂災害警戒区域 -->// 土砂災害警戒区域と寸分違わぬ範囲で災害が起きたという想定とする。
-fetch('data/simulation/SAITAMA_SedimentDisasterMap.geojson')
-.then(response => response.json())
-.then(data => {
-  L.geoJson(data).addTo(map);
-}).catch( (error) => {
-  console.error('SAITAMA_SedimentDisasterMap の読み込み又は地物情報の反映時にエラーが発生しました。')
-  console.error(error)
-});
-// // <!-- 埼玉県_避難施設 -->
-fetch('data/shelter/SAITAMA_Shelter.geojson')
-.then(response => response.json())
-// 避難施設は点データであり、利便性向上を目的として施設名称がマウスオーバーによって表示されるようにした。
-.then(data => {
-  data.features.forEach(
-    row =>
-    {
-      //GeoJSONとmarkerは緯度経度をサイズ2の配列を期待している点で同じだが並び順は異なる。GeoJSON経度緯度の順だが、マーカーは緯度経度の順番を期待している。
-      L.marker([row.geometry.coordinates[1],row.geometry.coordinates[0]],{ title: row.properties.P20_002 + '  ' + row.properties.P20_004 }).addTo(map);
-    }
-  )
-}).catch( (error) => {
-  console.error('SAITAMA_Shelter の読み込み又はマーカへの反映時にエラーが発生しました。')
-  console.error(error)
-});
+
+// <!-- 埼玉県_洪水浸水想定区域 -->// 洪水浸水想定区域と寸分違わぬ範囲で災害が起きたという想定とする。
+function showFllodHazardMap(){
+  fetch('data/simulation/SAITAMA_FllodHazardMap.geojson')
+  .then(response => response.json())
+  .then(data => {
+    L.geoJson(data,{
+      onEachFeature: function onEachFeature(feature,layer){
+        layer.properties = {
+          classification: "FllodHazardMap",
+        };
+        map.group.addLayer(layer);
+      }
+    });
+  }).catch( (error) => {
+    console.error('SAITAMA_FllodHazardMap の読み込み又は地物情報の反映時にエラーが発生しました。')
+    console.error(error)
+  });
+}
+
+// <!-- 埼玉県_土砂災害警戒区域 -->// 土砂災害警戒区域と寸分違わぬ範囲で災害が起きたという想定とする。
+function showSedimentDisasterMap(){
+  fetch('data/simulation/SAITAMA_SedimentDisasterMap.geojson')
+  .then(response => response.json())
+  .then(data => {
+    L.geoJson(data,{
+      onEachFeature: function onEachFeature(feature,layer){
+        layer.properties = {
+          classification: "SedimentDisasterMap",
+        };
+        map.group.addLayer(layer);
+      }
+    });
+  }).catch( (error) => {
+    console.error('SAITAMA_SedimentDisasterMap の読み込み又は地物情報の反映時にエラーが発生しました。')
+    console.error(error)
+  });
+}
+
+// <!-- 埼玉県_避難施設 -->
+function showShelter(){
+  fetch('data/shelter/SAITAMA_Shelter.geojson')
+  .then(response => response.json())
+  // 避難施設は点データであり、利便性向上を目的として施設名称がマウスオーバーによって表示されるようにした。
+  .then(data => {
+    data.features.forEach(
+      row =>
+      {
+        //GeoJSONとmarkerは緯度経度をサイズ2の配列を期待している点で同じだが並び順は異なる。GeoJSON経度緯度の順だが、マーカーは緯度経度の順番を期待している。
+        layer = L.marker([row.geometry.coordinates[1],row.geometry.coordinates[0]],{ title: row.properties.P20_002 + '  ' + row.properties.P20_004 });
+        layer.properties = {
+          classification: "Shelter",
+        };
+        map.group.addLayer(layer);
+      }
+    )
+  }).catch( (error) => {
+    console.error('SAITAMA_Shelter の読み込み又はマーカへの反映時にエラーが発生しました。')
+    console.error(error)
+  });
+}
 // // <!-- 埼玉県長瀞町_道路及び信号機 -->
 // L.geoJson(SAITAMA_Nagatoro_Road_GeoJSON).addTo(map);
 // L.geoJson(SAITAMA_Nagatoro_Signal_GeoJSON).addTo(map);
 
 
+// 表示切替
+function changeDisplayStatus(e){
+  let id = e.target.id;
+  var isChecked = e.target.checked;
+  // チェックがついているなら表示、ついていないなら非表示
+  if(isChecked){
+    showContents(id);
+  } else {
+    hideContents(id);
+  }
+}
+// レイヤーを表示する
+function showContents(id){
+  // 土砂災害区域
+  if(id == "SedimentDisasterMap"){
+    showSedimentDisasterMap();
+  }
+  // 避難所
+  if(id == "Shelter"){
+    showShelter();
+  }
+  // 洪水浸水想定区域
+  if(id == "FllodHazardMap"){
+    showFllodHazardMap();
+  }
+}
+// レイヤーを非表示にする
+function hideContents(id){
+  // groupのレイヤーを全取得
+  let layers = map["group"].getLayers();
+  for(let layer of layers) {
+    // 指定分類のレイヤーのみ削除
+    if(layer.properties.classification == id) {
+      // レイヤー削除
+      map.group.removeLayer(layer);
+    }
+  }
+}
 
 // 表示座標を移動
 function inputChange(){
@@ -82,7 +153,7 @@ function inputChange(){
 }
 
 //------------------------------------//
-// OpenStreetMapの機能を使って住所キーワードから経度・緯度オブジェクトを返す 
+// OpenStreetMapの機能を使って住所キーワードから経度・緯度オブジェクトを返す
 // @Params address:住所
 // 住所をもとに合致する地物がない場合は(緯度:0,経度0)の経度・緯度オブジェクトを返却する。
 // ※日本国内を想定しているため、ガーナ湾沖(緯度:0,経度0)が検索結果となることはない。
