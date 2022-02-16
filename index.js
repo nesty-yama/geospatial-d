@@ -23,6 +23,41 @@ map.group.addTo(map);
 map.setView([longLat, longLon], intZoom);
 
 //GeoJSONの地物をマップに追加
+// 単身高齢者宅
+function showSingleElderlyHome(){
+  fetch('data/support/SingleElderlyHome.geojson')
+  .then(response => response.json())
+  .then(data => {
+    L.geoJson(data,{
+      onEachFeature: function onEachFeature(feature,layer){
+        layer.properties = {
+          classification: "SingleElderlyHome",
+        };
+        // ポップアップの中身を作る
+        let popupContents = "<div>"
+        + "<div>名前:" + feature.properties.Name + "</div>"
+        + "<div>年齢:" + feature.properties.age + "</div>"
+        + "<div>持病:" + feature.properties.chronic + "</div>"
+        + "<div>所持品:" + feature.properties.instrument + "</div>"
+        + "<div>ステータス:" + feature.properties.status + "</div>"
+        + "<div>歩行:" + convertWalkable(feature.properties.walkable) + "</div>"
+        + "</div>"
+        // Leafletアイコンから表示するポップアップの設定
+        let popup = L.popup({
+          closeButton: false,
+          minWidth: 200,
+        }).setContent(popupContents);
+        layer.bindPopup(popup);
+        // mapにセット
+        map.group.addLayer(layer);
+      }
+    });
+  }).catch( (error) => {
+    console.error('SingleElderlyHome の読み込み又は地物情報の反映時にエラーが発生しました。')
+    console.error(error)
+  });
+}
+
 // <!-- 埼玉県_河川 -->
 // L.geoJson(SAITAMA_River_GeoJSON).addTo(map);
 // <!-- 埼玉県_緊急輸送道路 -->
@@ -106,6 +141,10 @@ function changeDisplayStatus(e){
 }
 // レイヤーを表示する
 function showContents(id){
+  // 単身高齢者宅
+  if(id == "SingleElderlyHome"){
+    showSingleElderlyHome();
+  }
   // 土砂災害区域
   if(id == "SedimentDisasterMap"){
     showSedimentDisasterMap();
@@ -130,6 +169,16 @@ function hideContents(id){
       map.group.removeLayer(layer);
     }
   }
+}
+//
+function convertWalkable(walkable){
+  if(walkable === 0){
+    return "×"
+  }
+  if(walkable === 1){
+    return "〇"
+  }
+  return "Error!!"
 }
 
 // 表示座標を移動
