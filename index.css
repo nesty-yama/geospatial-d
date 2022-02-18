@@ -86,13 +86,13 @@ html, body{
   transition: all .5s;
 }
 .is-open.menu {
-  height: 400px;
+  height: 370px;
 }
 .menu-inner {
   padding: 3%;
   margin-top: 10px;
   opacity: 0;
-  transition: all .5s;
+  transition: all .8s;
 }
 .menu ul {
   list-style: none;
@@ -178,4 +178,59 @@ html, body{
   height: 24px;
   position: relative;
   top: 8px;
+}
+
+/* 新規登録ボタン */
+.regist-new-data {
+  margin-top: 30px;
+}
+.regist-new-data a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+}
+.btn-regist {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  background: #52a5cc;
+  border-radius: 50%;
+  position: relative;
+  left: -8px;
+  transition: all .3s;
+}
+.btn-regist::before{
+  content: '';
+  position: absolute;
+  top: 14px;
+  left: 9px;
+  width: 12px;
+  height: 2px;
+  background: #fff;
+}
+.btn-regist::after{
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 11px;
+  width: 10px;
+  height: 10px;
+  border-top: 2px solid #fff;
+  border-right: 2px solid #fff;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.regist-new-data:hover .btn-regist {
+  left: 0px;
+}
+.label-regist {
+  color: #fff;
+  font-size: 1.1em;
+  margin-left: 0.2em;
+  text-decoration: none;
+  transition: all .3s;
+}
+.regist-new-data:hover .label-regist {
+  text-decoration: underline;
 }
