@@ -89,7 +89,7 @@ html, body{
   height: 400px;
 }
 .menu-inner {
-  padding: 5%;
+  padding: 3%;
   margin-top: 10px;
   opacity: 0;
   transition: all .5s;
@@ -105,12 +105,35 @@ html, body{
   opacity: 1;
 }
 
+/* メニュー住所検索 */
+.search-address {
+  display: flex;
+}
+.search-address .form-control {
+  width: 215px;
+}
+.btn-address {
+  margin-left: 5px;
+  width: 58px;
+  color: #fff;
+  background-color: #52a5cc;
+  transition: all .1s;
+}
+.btn-address:hover {
+  color: #fff;
+  background-color: #2998cc;
+}
+
 /* メニュースイッチ */
 .form-switch {
   padding-left: 1em;
 }
 .form-check-input {
   height: 1.8em;
+}
+.form-check-input:checked {
+  background-color: #52a5cc;
+  border-color: #52a5cc;
 }
 .form-switch .form-check-input {
   width: 3.5em;
