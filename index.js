@@ -124,7 +124,7 @@ function showSedimentDisasterMap(){
 function showShelter(){
   // アイコン設定
   let iconShelter = L.icon({
-    iconUrl: './image/icon_hinan_basyo.png',
+    iconUrl: './image/icon_hinan.png',
     iconSize: [32, 32],
   });
   // マップに表示
