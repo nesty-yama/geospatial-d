@@ -158,6 +158,21 @@ function showShelter(){
 // L.geoJson(SAITAMA_Nagatoro_Road_GeoJSON).addTo(map);
 // L.geoJson(SAITAMA_Nagatoro_Signal_GeoJSON).addTo(map);
 
+var num = 0;
+var watch_id;
+// 現在地を継続取得
+let watchGpsStart = () =>{
+    watch_id = navigator.geolocation.watchPosition((position)=>{
+      map.setView([position.coords.latitude, position.coords.longitude]);
+      L.marker([position.coords.latitude, position.coords.longitude], { title: "今の場所" }).addTo(map);
+    }, function(e) { alert(e.message); }, {"enableHighAccuracy": true, "timeout": 20000, "maximumAge": 2000});
+};
+
+// 現在地継続取得をやめる
+let watchGpsStop = () =>{
+    navigator.geolocation.clearWatch(watch_id);
+}
+
 
 // 表示切替
 function changeDisplayStatus(e){
