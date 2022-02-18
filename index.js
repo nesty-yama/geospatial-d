@@ -25,11 +25,18 @@ map.setView([longLat, longLon], intZoom);
 //GeoJSONの地物をマップに追加
 // 単身高齢者宅
 function showSingleElderlyHome(){
+  // アイコン設定
+  let iconSingleElderlyHome = L.icon({
+    iconUrl: './image/icon_home.png',
+    iconSize: [32, 32],
+  });
+  // マップに表示
   fetch('data/support/SingleElderlyHome.geojson')
   .then(response => response.json())
   .then(data => {
     L.geoJson(data,{
       onEachFeature: function onEachFeature(feature,layer){
+        layer.setIcon(iconSingleElderlyHome);
         layer.properties = {
           classification: "SingleElderlyHome",
         };
@@ -65,10 +72,16 @@ function showSingleElderlyHome(){
 
 // <!-- 埼玉県_洪水浸水想定区域 -->// 洪水浸水想定区域と寸分違わぬ範囲で災害が起きたという想定とする。
 function showFllodHazardMap(){
+  // スタイル設定
+  let styleFllodHazard = {
+    "color": "#C2302A",
+  }
+  // マップに表示
   fetch('data/simulation/SAITAMA_FllodHazardMap.geojson')
   .then(response => response.json())
   .then(data => {
     L.geoJson(data,{
+      style: styleFllodHazard,
       onEachFeature: function onEachFeature(feature,layer){
         layer.properties = {
           classification: "FllodHazardMap",
@@ -84,10 +97,16 @@ function showFllodHazardMap(){
 
 // <!-- 埼玉県_土砂災害警戒区域 -->// 土砂災害警戒区域と寸分違わぬ範囲で災害が起きたという想定とする。
 function showSedimentDisasterMap(){
+  // スタイル設定
+  let styleSedimentDisaster = {
+    "color": "#ED6D35",
+  }
+  // マップに表示
   fetch('data/simulation/SAITAMA_SedimentDisasterMap.geojson')
   .then(response => response.json())
   .then(data => {
     L.geoJson(data,{
+      style: styleSedimentDisaster,
       onEachFeature: function onEachFeature(feature,layer){
         layer.properties = {
           classification: "SedimentDisasterMap",
@@ -103,6 +122,12 @@ function showSedimentDisasterMap(){
 
 // <!-- 埼玉県_避難施設 -->
 function showShelter(){
+  // アイコン設定
+  let iconShelter = L.icon({
+    iconUrl: './image/icon_hinan_basyo.png',
+    iconSize: [32, 32],
+  });
+  // マップに表示
   fetch('data/shelter/SAITAMA_Shelter.geojson')
   .then(response => response.json())
   // 避難施設は点データであり、利便性向上を目的として施設名称がマウスオーバーによって表示されるようにした。
@@ -111,7 +136,10 @@ function showShelter(){
       row =>
       {
         //GeoJSONとmarkerは緯度経度をサイズ2の配列を期待している点で同じだが並び順は異なる。GeoJSON経度緯度の順だが、マーカーは緯度経度の順番を期待している。
-        layer = L.marker([row.geometry.coordinates[1],row.geometry.coordinates[0]],{ title: row.properties.P20_002 + '  ' + row.properties.P20_004 });
+        layer = L.marker([row.geometry.coordinates[1],row.geometry.coordinates[0]],{
+          title: row.properties.P20_002 + '  ' + row.properties.P20_004,
+          icon: iconShelter,
+        });
         layer.properties = {
           classification: "Shelter",
         };
@@ -244,5 +272,5 @@ const getLatLngByAdreessForOpenStreetMap = (address) =>
       console.log("XMLHttpRequest : " + XMLHttpRequest.status); // HTTPリクエストのステータス
       console.log("textStatus : " + textStatus); // タイムアウト、パースエラー等の情報
       console.log("errorThrown : " + errorThrown.message); // 例外情報
-    });  
+    });
   });
