@@ -7,6 +7,9 @@ let mapLayer = null;
 // マップ定義
 let map = L.map("map");
 
+// スケール表示
+let control = L.control.scale({maxWidth: 200, imperial: false, position: 'bottomleft'}).addTo(map);
+
 // featureGroup等を定義
 mapLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
   {
