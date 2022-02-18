@@ -7,9 +7,10 @@
   メニューボタン開閉
 -------------------------------------------------------*/
 function fnClickHeaderMenu() {
-  document.body.classList.toggle('btn-menu-open');
+  // ボタン
+  let btnMenuEl = document.getElementById('btnMenu');
+  btnMenuEl.classList.toggle('is-open');
+  // メニュー内部
+  let menuEl = document.getElementById('menu');
+  menuEl.classList.toggle("is-open");
 }
-
-/*-----------------------------------------------------
-  メニュー開閉 ※未実装
--------------------------------------------------------*/

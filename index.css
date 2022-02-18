@@ -30,7 +30,6 @@ html, body{
 }
 /* ヘッダタイトル */
 .header h1 {
-  width: 100%;
   color: #ffffff;
   font-style: normal;
   font-weight: bold;
@@ -52,7 +51,7 @@ html, body{
   width: 20px;
   height: 3px;
   background-color: #fff;
-  transition: all .6s;
+  transition: all .5s;
 }
 .btn-menu span:first-child {
   top: 12px;
@@ -63,14 +62,14 @@ html, body{
 .btn-menu span:nth-child(3) {
   top: 28px;
 }
-.btn-menu-open .btn-menu span:first-child {
+.is-open.btn-menu span:first-child {
   transform: rotate(45deg);
   top: 20px;
 }
-.btn-menu-open .btn-menu span:nth-child(2) {
+.is-open.btn-menu span:nth-child(2) {
   width: 0;
 }
-.btn-menu-open .btn-menu span:nth-child(3) {
+.is-open.btn-menu span:nth-child(3) {
   transform: rotate(-45deg);
   top: 20px;
 }
@@ -82,10 +81,18 @@ html, body{
   top: 50px; /* ヘッダ高さ */
   right: 0;
   width: 300px;
-  height: calc(100% - 50px);
-  box-sizing: border-box;
-  padding: 1%;
+  height: 0;
   z-index: 100;
+  transition: all .5s;
+}
+.is-open.menu {
+  height: 400px;
+}
+.menu-inner {
+  padding: 5%;
+  margin-top: 10px;
+  opacity: 0;
+  transition: all .5s;
 }
 .menu ul {
   list-style: none;
@@ -93,6 +100,9 @@ html, body{
 }
 .menu ul li {
   padding: 3%;
+}
+.is-open.menu .menu-inner{
+  opacity: 1;
 }
 
 /* メニュースイッチ */
