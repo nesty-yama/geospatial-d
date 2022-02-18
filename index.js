@@ -133,22 +133,28 @@ function showShelter(){
   // マップに表示
   fetch('data/shelter/SAITAMA_Shelter.geojson')
   .then(response => response.json())
-  // 避難施設は点データであり、利便性向上を目的として施設名称がマウスオーバーによって表示されるようにした。
   .then(data => {
-    data.features.forEach(
-      row =>
-      {
-        //GeoJSONとmarkerは緯度経度をサイズ2の配列を期待している点で同じだが並び順は異なる。GeoJSON経度緯度の順だが、マーカーは緯度経度の順番を期待している。
-        layer = L.marker([row.geometry.coordinates[1],row.geometry.coordinates[0]],{
-          title: row.properties.P20_002 + '  ' + row.properties.P20_004,
-          icon: iconShelter,
-        });
+    L.geoJson(data,{
+      onEachFeature: function onEachFeature(feature,layer){
+        layer.setIcon(iconShelter);
         layer.properties = {
           classification: "Shelter",
         };
+        // ポップアップの中身を作る
+        let popupContents = "<div>"
+        + "<div>名称:" + feature.properties.P20_002 + "</div>"
+        + "<div>種類:" + feature.properties.P20_004 + "</div>"
+        + "</div>"
+        // Leafletアイコンから表示するポップアップの設定
+        let popup = L.popup({
+          closeButton: false,
+          minWidth: 200,
+        }).setContent(popupContents);
+        layer.bindPopup(popup);
+        // mapにセット
         map.group.addLayer(layer);
       }
-    )
+    });
   }).catch( (error) => {
     console.error('SAITAMA_Shelter の読み込み又はマーカへの反映時にエラーが発生しました。')
     console.error(error)

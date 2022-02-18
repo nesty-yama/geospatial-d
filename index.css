@@ -86,7 +86,7 @@ html, body{
   transition: all .5s;
 }
 .is-open.menu {
-  height: 370px;
+  height: 430px;
 }
 .menu-inner {
   padding: 3%;
@@ -233,4 +233,19 @@ html, body{
 }
 .regist-new-data:hover .label-regist {
   text-decoration: underline;
+}
+
+/* 位置情報 */
+.search-gps {
+  margin-top: 20px;
+}
+.btn-gps {
+  margin-left: 5px;
+  color: #fff;
+  background-color: #00a497;
+  transition: all .1s;
+}
+.btn-gps:hover {
+  color: #fff;
+  background-color: #00998c;
 }
