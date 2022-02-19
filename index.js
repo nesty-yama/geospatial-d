@@ -25,6 +25,17 @@ map.group.addTo(map);
 // マップ表示
 map.setView([longLat, longLon], intZoom);
 
+// ページ読み込み時に実行
+window.onload = function(){
+  // 初期処理
+  // チェックを付ける
+  let element = document.getElementById('SingleElderlyHome');
+  element.checked = true;
+
+  // 単身高齢者を表示
+  showSingleElderlyHome();
+}
+
 //GeoJSONの地物をマップに追加
 // 単身高齢者宅
 function showSingleElderlyHome(){
