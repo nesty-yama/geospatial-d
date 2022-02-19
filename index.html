@@ -69,8 +69,43 @@
         <li>
           <div class="form-check form-switch menu-switch">
             <input class="form-check-input" type="checkbox" role="switch" id="SingleElderlyHome" onchange="changeDisplayStatus(event)">
+            <label class="form-check-label" for="SingleElderlyHome">単身高齢者宅（全て）</label>
+          </div>
+        </li>
+        <li class="single-elderly-home-sub">
+          <div class="form-check form-switch menu-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="SingleElderlyHomeNoStatus" onchange="">
+            <div class="switch-style"><img src="./image/icon_home_humei.png"></div>
+            <label class="form-check-label" for="SingleElderlyHomeNoStatus">不明のみ</label>
+          </div>
+        </li>
+        <li class="single-elderly-home-sub">
+          <div class="form-check form-switch menu-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="SingleElderlyHomeFinish" onchange="">
             <div class="switch-style"><img src="./image/icon_home.png"></div>
-            <label class="form-check-label" for="SingleElderlyHome">単身高齢者宅</label>
+            <label class="form-check-label" for="SingleElderlyHomeFinish">避難済のみ</label>
+          </div>
+        </li>
+        <li class="single-elderly-home-sub">
+          <div class="form-check form-switch menu-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="SingleElderlyHomeRejection" onchange="">
+            <div class="switch-style"><img src="./image/icon_home_kyohi.png"></div>
+            <label class="form-check-label" for="SingleElderlyHomeRejection">避難拒否のみ</label>
+          </div>
+        </li>
+        <li class="single-elderly-home-sub">
+          <div class="form-check form-switch menu-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="SingleElderlyHomeAbsence" onchange="">
+            <div class="switch-style"><img src="./image/icon_home_huzai.png"></div>
+            <label class="form-check-label" for="SingleElderlyHomeAbsence">不在のみ</label>
+          </div>
+        </li>
+        <!-- 避難施設 -->
+        <li>
+          <div class="form-check form-switch menu-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="Shelter" onchange="changeDisplayStatus(event)">
+            <div class="switch-style"><img src="./image/icon_hinan.png"></div>
+            <label class="form-check-label" for="Shelter">避難施設</label>
           </div>
         </li>
         <!-- 洪水浸水発生区域 -->
@@ -87,14 +122,6 @@
             <input class="form-check-input" type="checkbox" role="switch" id="SedimentDisasterMap" onchange="changeDisplayStatus(event)">
             <div class="switch-style"><span class="switch-sediment-disaster"></span></div>
             <label class="form-check-label" for="SedimentDisasterMap">土砂災害発生区域</label>
-          </div>
-        </li>
-        <!-- 避難施設 -->
-        <li>
-          <div class="form-check form-switch menu-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="Shelter" onchange="changeDisplayStatus(event)">
-            <div class="switch-style"><img src="./image/icon_hinan.png"></div>
-            <label class="form-check-label" for="Shelter">避難施設</label>
           </div>
         </li>
       </ul>

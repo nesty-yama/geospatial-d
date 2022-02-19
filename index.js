@@ -60,8 +60,17 @@ function showSingleElderlyHome(){
         + "<div>年齢:" + feature.properties.age + "</div>"
         + "<div>持病:" + feature.properties.chronic + "</div>"
         + "<div>所持品:" + feature.properties.instrument + "</div>"
-        + "<div>ステータス:" + feature.properties.status + "</div>"
         + "<div>歩行:" + convertWalkable(feature.properties.walkable) + "</div>"
+        // + "<div>ステータス:" + feature.properties.status + "</div>"
+        + "<div style='margin-top:5px;'>"
+        + "ステータス:"
+        + "<select class='form-select form-select-sm'>"
+        + " <option>不明</option>"
+        + " <option selected>避難済</option>"
+        + " <option>避難拒否</option>"
+        + " <option>不在</option>"
+        + "</select>"
+        + "</div>"
         + "</div>"
         // Leafletアイコンから表示するポップアップの設定
         let popup = L.popup({
